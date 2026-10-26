@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; media-src 'self' data: blob:; connect-src 'self' data: blob:; worker-src 'self' blob:; manifest-src 'self'; form-action 'none'; base-uri 'none'; object-src 'none'">
+<meta name="referrer" content="no-referrer">
+<title>Cron Explain — Cron Expression to Plain English &amp; Next Run Times | S3eidat Tools</title>
+<meta name="description" content="Paste a cron expression and read it in plain English, see the next 10 run times in your timezone, and build schedules with presets and per-field errors. Free, private, nothing uploaded.">
+<meta property="og:title" content="Cron Explain — cron expressions in plain English">
+<meta property="og:description" content="Plain-English cron, next 10 runs in your timezone, and a builder. Runs 100% in your browser.">
+<meta property="og:image" content="screenshot.png">
+<link rel="icon" href="kit/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="kit/kit.css">
+<link rel="stylesheet" href="app.css">
+<script src="kit/kit.js"></script>
+</head>
+<body data-tool="cron-explain">
+<main class="s3-main">
+  <section class="s3-hero">
+    <h1>Cron Explain</h1>
+    <p>Turn a cron expression into plain English and see exactly when it will run next, in your own timezone.</p>
+  </section>
+
+  <section class="card stack">
+    <label class="field" for="expr">Cron expression <span class="faint">minute · hour · day of month · month · day of week, or @daily, @hourly…</span></label>
+    <input class="input mono ce-expr" id="expr" spellcheck="false" autocomplete="off" autocapitalize="off" value="*/5 * * * *">
+    <div class="ce-says" id="says" aria-live="polite"></div>
+    <div class="row between">
+      <div class="row"><span class="chip" id="status">—</span></div>
+      <div class="row">
+        <div class="seg" id="clock" role="group" aria-label="Clock format">
+          <button aria-pressed="true" data-v="24">24h</button>
+          <button aria-pressed="false" data-v="12">12h</button>
+        </div>
+        <button class="btn small" id="copy"><svg class="i"><use href="#i-copy"/></svg>Copy</button>
+      </div>
+    </div>
+    <div class="ce-presets" id="presets" aria-label="Presets"></div>
+  </section>
+
+  <div class="grid-2 ce-grid mt">
+    <section class="card stack">
+      <h2>Builder <small>edit any field</small></h2>
+      <div class="ce-fields" id="fields"></div>
+      <details class="ce-help">
+        <summary>Syntax</summary>
+        <div class="tbl-wrap mt"><table class="tbl"><tbody>
+          <tr><th><code>*</code></th><td>every value</td></tr>
+          <tr><th><code>5</code></th><td>exactly 5</td></tr>
+          <tr><th><code>1-5</code></th><td>range 1 through 5</td></tr>
+          <tr><th><code>1,15,30</code></th><td>a list</td></tr>
+          <tr><th><code>*/10</code></th><td>every 10th value from the start</td></tr>
+          <tr><th><code>9-17/2</code></th><td>every 2nd value within a range</td></tr>
+          <tr><th><code>JAN</code>, <code>MON</code></th><td>month and weekday names (0 and 7 are both Sunday)</td></tr>
+        </tbody></table></div>
+        <p class="faint">When both day of month and day of week are set, the job runs when <b>either</b> matches (standard cron behaviour).</p>
+      </details>
+    </section>
+
+    <section class="card stack">
+      <div class="row between"><h2>Next 10 runs</h2><span class="chip" id="tz"></span></div>
+      <ol class="ce-runs" id="runs"></ol>
+    </section>
+  </div>
+</main>
+<script src="app.js"></script>
+</body>
+</html>
